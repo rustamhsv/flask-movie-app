@@ -28,6 +28,8 @@ def process_results(movies):
     """ process json response and return list of Movie objects """
 
     movie_objects = []
+
+    # iterate through movies
     for movie in movies:
         movie_id = movie.get('id')
         title = movie.get('title')
