@@ -16,6 +16,10 @@ def create_app(config_class=Config):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    # register users Blueprint
+    from .users import users as users_blueprint
+    app.register_blueprint(users_blueprint)
+
     return app
 
 
