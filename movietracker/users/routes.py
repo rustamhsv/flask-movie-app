@@ -15,4 +15,5 @@ def register():
     if form.validate_on_submit():
         flash('Registration successful', 'success')
         return redirect(url_for('users.login'))
+
     return render_template('register.html', form=form)

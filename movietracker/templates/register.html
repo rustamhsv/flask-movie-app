@@ -16,8 +16,35 @@
 
     <!-- Login Form -->
     <form method="POST">
+      <!-- token is required for validating forms -->
       {{ form.csrf_token }}
       {{ form.username(placeholder=form.username.label.text) }}
+      {% if form.username.errors %}
+        <div class="invalid-feedback">
+            {% for error in form.username.errors %}
+              <span> {{ error }}</span>
+            {% endfor %}
+        </div>
+      {% endif %}
+      {{ form.email(placeholder=form.email.label.text) }}
+      {{ form.password(placeholder=form.password.label.text) }}
+      {{ form.confirm_password(placeholder=form.confirm_password.label.text) }}
+      {% for fieldName, errorMessages in form.errors.items() %}
+        <div class="text-danger">
+          {% for error in errorMessages %}
+            <span> {{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+<!--      print out errors-->
+<!--      {% if form.confirm_password.errors %}-->
+<!--        {% for error in form.confirm_password.errors %}-->
+<!--          <span> {{ error }}</span>-->
+<!--        {% endfor %}-->
+<!--      {% endif %}-->
+
+
 <!--      <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">-->
 <!--      <input type="text" id="login" class="fadeIn second" name="login" placeholder="email">-->
 <!--      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">-->
