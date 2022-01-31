@@ -6,21 +6,25 @@
 
 <div class="wrapper fadeInDown">
   <div id="formContent">
-    <!-- Tabs Titles -->
-
-<!--    &lt;!&ndash; Icon &ndash;&gt;-->
-<!--    <div class="fadeIn first">-->
-<!--      <img src="static/photos/user.png" id="icon" alt="User Icon" style="width:20%; height:20%" />-->
-<!--    </div>-->
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="email">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+    <form method="POST">
+
+    {{ form.csrf_token }}
+    {{ form.email(placeholder=form.email.label.text) }}
+    {{ form.password(placeholder=form.password.label.text) }}
+    {% for fieldName, errorMessages in form.errors.items() %}
+      <div class="text-danger">
+        {% for error in errorMessages %}
+          <span> {{ error }}</span>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    {{ form.submit }}
     </form>
 
-    <!-- Remind Passowrd -->
+    <!-- Remind Password -->
     <div id="formFooter">
       <a class="underlineHover" href="#" id="forgot_password">Forgot Password?</a>
       <a class="underlineHover" href="{{ url_for('users.register') }}">Register</a>

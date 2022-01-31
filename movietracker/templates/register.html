@@ -19,13 +19,6 @@
       <!-- token is required for validating forms -->
       {{ form.csrf_token }}
       {{ form.username(placeholder=form.username.label.text) }}
-      {% if form.username.errors %}
-        <div class="invalid-feedback">
-            {% for error in form.username.errors %}
-              <span> {{ error }}</span>
-            {% endfor %}
-        </div>
-      {% endif %}
       {{ form.email(placeholder=form.email.label.text) }}
       {{ form.password(placeholder=form.password.label.text) }}
       {{ form.confirm_password(placeholder=form.confirm_password.label.text) }}

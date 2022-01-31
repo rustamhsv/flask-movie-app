@@ -15,6 +15,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     # reviews = db.relationship('Review', backref='user', lazy=True)
 
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', '{self.photo_file}')"
+
 
 class Movie:
     """ Define Movie objects """
