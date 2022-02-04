@@ -1,11 +1,11 @@
 from . import users
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from .forms import RegistrationForm, LoginFrom, UpdateAccountForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from movietracker.models import User
 from movietracker import db
 from flask_login import current_user, login_required, login_user, logout_user
-
+from .utils import save_picture
 
 @users.route('/register', methods=['GET', 'POST'])
 def register():
@@ -60,6 +60,17 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file =
-    return render_template('account.html', form=form)
+            picture_file = save_picture(form.picture.data)
+            current_user.photo_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('users.account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    photo_file = url_for('static', filename='photos/' + current_user.photo_file)
+    return render_template('account.html', form=form, photo_file=photo_file)
 

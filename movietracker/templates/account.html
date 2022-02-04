@@ -7,7 +7,7 @@
 <div class="wrapper fadeInDown">
   <div id="formContent">
       <div>
-          <img src="{{ current_user.photo_file }}" alt="Profile Picture">
+          <img src="{{ photo_file }}" alt="Profile Picture">
       </div>
       <div style="margin-bottom: 100px">
           <h2 class="account-heading">{{ current_user.username }}</h2>
@@ -15,9 +15,11 @@
       </div>
 
     <!-- Login Form -->
-    <form method="POST">
+    <form method="POST" action="" enctype="multipart/form-data">
 
     {{ form.csrf_token }}
+    <p>Choose profile picture</p>
+    {{ form.picture }}
     {{ form.username(placeholder=current_user.username) }}
     {{ form.email(placeholder=current_user.email) }}
     {% for fieldName, errorMessages in form.errors.items() %}
