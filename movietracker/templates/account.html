@@ -1,0 +1,35 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="static/css/login.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+      <div>
+          <img src="{{ current_user.photo_file }}" alt="Profile Picture">
+      </div>
+      <div style="margin-bottom: 100px">
+          <h2 class="account-heading">{{ current_user.username }}</h2>
+          <p class="text-secondary">{{ current_user.email }}</p>
+      </div>
+
+    <!-- Login Form -->
+    <form method="POST">
+
+    {{ form.csrf_token }}
+    {{ form.username(placeholder=current_user.username) }}
+    {{ form.email(placeholder=current_user.email) }}
+    {% for fieldName, errorMessages in form.errors.items() %}
+      <div class="text-danger">
+        {% for error in errorMessages %}
+          <span> {{ error }}</span>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    {{ form.submit }}
+    </form>
+
+  </div>
+</div>

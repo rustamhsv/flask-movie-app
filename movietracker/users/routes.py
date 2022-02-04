@@ -1,10 +1,10 @@
 from . import users
 from flask import render_template, flash, redirect, url_for
-from .forms import RegistrationForm, LoginFrom
+from .forms import RegistrationForm, LoginFrom, UpdateAccountForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from movietracker.models import User
 from movietracker import db
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, login_user, logout_user
 
 
 @users.route('/register', methods=['GET', 'POST'])
@@ -41,13 +41,25 @@ def login():
 
         user = User.query.filter_by(email=form.email.data).first()
         if user and check_password_hash(user.password, form.password.data):
+            login_user(user)
             flash('Login successful!', 'success')
             return redirect(url_for('main.home'))
     return render_template('login.html', form=form)
 
 
+@users.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.home'))
+
+
 @users.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    return "<h1>ACCOUNT</h1>"
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file =
+    return render_template('account.html', form=form)
 
