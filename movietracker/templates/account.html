@@ -33,5 +33,9 @@
     {{ form.submit }}
     </form>
 
+    {% for message in get_flashed_messages() %}
+        <p class="alert alert-danger">{{ message }}</p>
+    {% endfor %}
+
   </div>
 </div>

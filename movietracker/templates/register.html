@@ -30,21 +30,12 @@
         </div>
       {% endfor %}
 
-<!--      print out errors-->
-<!--      {% if form.confirm_password.errors %}-->
-<!--        {% for error in form.confirm_password.errors %}-->
-<!--          <span> {{ error }}</span>-->
-<!--        {% endfor %}-->
-<!--      {% endif %}-->
-
-
-<!--      <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">-->
-<!--      <input type="text" id="login" class="fadeIn second" name="login" placeholder="email">-->
-<!--      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">-->
-<!--      <input type="password" id="repeat_password" class="fadeIn third" name="login" placeholder="repeat password">-->
       {{ form.submit }}
-<!--      <input type="submit" class="fadeIn fourth" value="Register">-->
     </form>
+
+    {% for message in get_flashed_messages() %}
+        <p class="alert alert-danger">{{ message }}</p>
+    {% endfor %}
 
     <!-- Maybe login with Google? -->
 <!--    <div id="formFooter">-->
