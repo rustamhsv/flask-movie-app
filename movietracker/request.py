@@ -3,23 +3,27 @@ from .models import Movie
 from movietracker.config import Config
 
 
-def get_movies():
+def get_movies(pages=2):
 
     # get API key
     config = Config()
     api_key = config.TMDB_API_KEY
 
-    url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&language=en-US' \
-          '&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types' \
-          '=flatrate'
+    all_movies = []
+    for page in range(1, pages):
+        url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&language=en-US' \
+              f'&sort_by=popularity.desc&include_adult=false&include_video=false&page={page}' \
+              f'&with_watch_monetization_types=flatrate'
 
-    # get json response
-    response = requests.get(url)
-    json_data = response.json()
+        # get json response
+        response = requests.get(url)
+        json_data = response.json()
 
-    # get movies list
-    movies = json_data['results']
-    movie_objects = process_results(movies)
+        # get movies list
+        movies = json_data['results']
+        all_movies += movies
+
+    movie_objects = process_results(all_movies)
 
     return movie_objects
 

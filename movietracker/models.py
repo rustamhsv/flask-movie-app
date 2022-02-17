@@ -29,3 +29,13 @@ class Movie:
         self.poster = f"https://www.themoviedb.org/t/p/w1280{poster}"
         self.release_date = release_date
         self.vote_average = vote_average
+
+
+class MovieDB(db.Model, UserMixin):
+    movie_id = db.Column(db.String, primary_key=True)
+    title = db.Column(db.String(120), unique=True, nullable=False)
+    poster = db.Column(db.String(120), unique=True, nullable=False)
+    release_date = db.Column(db.String(20))
+    vote_average = db.Column(db.String(20), nullable=False)
+
+    # reviews = db.relationship('Review', backref='user', lazy=True)
