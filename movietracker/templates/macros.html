@@ -1,5 +1,5 @@
 {% macro displayMovieList(popular_movies) %}
-    {% for movie in popular_movies %}
+    {% for movie in popular_movies.items %}
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 movie-card" style="margin-bottom: 20px;">
         <img src="{{ movie.poster }}" alt="{{ movie.title }}" class="img-thumbnail">
         <div class="text-center">
@@ -7,5 +7,19 @@
             <h4>{{ movie.title }}</h4>
         </div>
     </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro paginate_movies(popular_movies) %}
+    {% for page_num in popular_movies.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if popular_movies.page == page_num %}
+              <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+              <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
     {% endfor %}
 {% endmacro %}
