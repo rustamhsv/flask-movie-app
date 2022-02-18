@@ -1,10 +1,12 @@
 {% macro displayMovieList(popular_movies) %}
     {% for movie in popular_movies.items %}
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 movie-card" style="margin-bottom: 20px;">
-        <img src="{{ movie.poster }}" alt="{{ movie.title }}" class="img-thumbnail">
-        <div class="text-center">
+        <a href="{{ url_for('users.login') }}"><img title="Rating: {{ movie.vote_average}}" src="{{ movie.poster }}" alt="{{ movie.title }}"
+                class="img-thumbnail"></a>
+        <div title="EE" class="text-center">
 <!--            <a></a>-->
-            <h4>{{ movie.title }}</h4>
+            <a href="{{ url_for('users.login') }}"><h4 title="Rating: {{ movie.vote_average}}">
+                {{ movie.title }} ({{movie.release_date}})</h4></a>
         </div>
     </div>
     {% endfor %}

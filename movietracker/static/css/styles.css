@@ -2,3 +2,12 @@ body {
   margin-left: 100px;
   margin-right: 100px;
 }
+
+.movie:hover + .hide{
+    display: block;
+    color: red;
+}
+
+.hide {
+  display: none;
+}

@@ -14,6 +14,7 @@ def get_movies(pages=2):
         url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&language=en-US' \
               f'&sort_by=popularity.desc&include_adult=false&include_video=false&page={page}' \
               f'&with_watch_monetization_types=flatrate'
+        print(url)
 
         # get json response
         response = requests.get(url)
@@ -40,9 +41,11 @@ def process_results(movies):
         poster = movie.get('poster_path')
         release_date = movie.get('release_date')
         vote_average = movie.get('vote_average')
+        vote_count = movie.get('vote_count')
+        overview = movie.get('overview')
 
         if poster:
-            movie_object = Movie(movie_id, title, poster, release_date, vote_average)
+            movie_object = Movie(movie_id, title, poster, release_date, vote_average, vote_count, overview)
             movie_objects.append(movie_object)
 
     return movie_objects

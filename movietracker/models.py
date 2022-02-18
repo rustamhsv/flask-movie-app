@@ -23,12 +23,14 @@ class User(db.Model, UserMixin):
 class Movie:
     """ Define Movie objects """
 
-    def __init__(self, movie_id, title, poster, release_date, vote_average):
+    def __init__(self, movie_id, title, poster, release_date, vote_average, vote_count, overview):
         self.movie_id = movie_id
         self.title = title
         self.poster = f"https://www.themoviedb.org/t/p/w1280{poster}"
-        self.release_date = release_date
+        self.release_date = str(release_date)[:4]
         self.vote_average = vote_average
+        self.vote_count = vote_count
+        self.overview = overview
 
 
 class MovieDB(db.Model, UserMixin):
@@ -37,5 +39,7 @@ class MovieDB(db.Model, UserMixin):
     poster = db.Column(db.String(120), nullable=False)
     release_date = db.Column(db.String(20))
     vote_average = db.Column(db.String(20), nullable=False)
+    vote_count = db.Column(db.Integer)
+    overview = db.Column(db.String)
 
     # reviews = db.relationship('Review', backref='user', lazy=True)
