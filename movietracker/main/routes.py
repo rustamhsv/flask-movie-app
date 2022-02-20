@@ -21,3 +21,9 @@ def home():
     popular_movies_from_db = MovieDB.query.paginate(page=page, per_page=24)
 
     return render_template('home.html', popular_movies=popular_movies_from_db)
+
+
+@main.route('/movie/<movie_id>/<movie_title>')
+def movie_page(movie_id, movie_title):
+    movie = MovieDB.query.filter_by(movie_id=movie_id).first_or_404()
+    return render_template('movie.html', movie=movie)

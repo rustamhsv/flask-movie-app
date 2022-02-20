@@ -3,11 +3,20 @@ body {
   margin-right: 100px;
 }
 
-.movie:hover + .hide{
-    display: block;
-    color: red;
+#wrapper {
+    display: flex;
 }
 
-.hide {
-  display: none;
+#movie {
+    display: inline-block;
+}
+
+#overview {
+    margin-left: 50px;
+    margin-right: 300px;
+    display: inline-block;
+}
+
+#poster{
+    margin-bottom: 15px;
 }
