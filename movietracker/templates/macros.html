@@ -7,7 +7,7 @@
         <div title="EE" class="text-center">
 <!--            <a></a>-->
             <a href="{{ url_for('main.movie_page', movie_id=movie.movie_id, movie_title=movie.title) }}">
-                <h4 title="Rating: {{ movie.vote_average}}">
+                <h4 title="Rating: {{ movie.vote_average}}" style="color:black;">
                 {{ movie.title }} ({{movie.release_date}})</h4></a>
         </div>
     </div>

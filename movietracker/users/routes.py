@@ -7,6 +7,7 @@ from movietracker import db
 from flask_login import current_user, login_required, login_user, logout_user
 from .utils import save_picture, validate_username, validate_email
 
+
 @users.route('/register', methods=['GET', 'POST'])
 def register():
     # if user already signed in then redirect user to home page

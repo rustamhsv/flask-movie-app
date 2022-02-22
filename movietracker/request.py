@@ -14,7 +14,6 @@ def get_movies(pages=2):
         url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&language=en-US' \
               f'&sort_by=popularity.desc&include_adult=false&include_video=false&page={page}' \
               f'&with_watch_monetization_types=flatrate'
-        print(url)
 
         # get json response
         response = requests.get(url)

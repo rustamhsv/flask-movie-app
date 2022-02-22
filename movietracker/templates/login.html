@@ -11,7 +11,7 @@
   <div id="formContent">
 
     <!-- Login Form -->
-    <form method="POST">
+    <form method="POST" action="/login" enctype="multipart/form-data">
 
     {{ form.csrf_token }}
     {{ form.email(placeholder=form.email.label.text) }}
@@ -28,7 +28,7 @@
     </form>
 
     <!-- Remind Password -->
-    <div id="formFooter">
+    <div id="formFooter" style="font-size:130%;">
       <a class="underlineHover" href="#" id="forgot_password">Forgot Password?</a>
       <a class="underlineHover" href="{{ url_for('users.register') }}">Register</a>
     </div>

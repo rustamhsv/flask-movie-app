@@ -20,3 +20,8 @@ body {
 #poster{
     margin-bottom: 15px;
 }
+
+nav .navbar-nav li a{
+  color: black !important;
+  font-size: 13px;
+  }

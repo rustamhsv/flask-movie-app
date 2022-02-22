@@ -16,7 +16,7 @@
 <!--    </div>-->
 
     <!-- Login Form -->
-    <form method="POST">
+    <form method="POST" action="/login" enctype="multipart/form-data">
       <!-- token is required for validating forms -->
       {{ form.csrf_token }}
       {{ form.username(placeholder=form.username.label.text) }}

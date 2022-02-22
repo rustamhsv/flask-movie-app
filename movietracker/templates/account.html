@@ -7,17 +7,17 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="wrapper fadeInDown">
-  <div id="formContent">
+  <div id="formContent" style="font-size:15px;">
       <div>
           <img src="{{ photo_file }}" alt="Profile Picture">
       </div>
-      <div style="margin-bottom: 100px">
+      <div style="margin-bottom: 100px;">
           <h2 class="account-heading">{{ current_user.username }}</h2>
           <p class="text-secondary">{{ current_user.email }}</p>
       </div>
 
     <!-- Login Form -->
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="/account" enctype="multipart/form-data">
 
     {{ form.csrf_token }}
     <p>Choose profile picture</p>
