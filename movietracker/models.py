@@ -1,3 +1,5 @@
+import datetime
+
 from movietracker import db, login_manager
 from flask_login import UserMixin
 
@@ -42,4 +44,12 @@ class MovieDB(db.Model, UserMixin):
     vote_count = db.Column(db.Integer)
     overview = db.Column(db.String)
 
-    # reviews = db.relationship('Review', backref='user', lazy=True)
+    reviews = db.relationship('Review', backref='movie', lazy=True)
+
+
+class Review(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    content = db.Column(db.Text, nullable=False)
+    author = db.Column(db.String)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movieDB.movie_id'), nullable=True)

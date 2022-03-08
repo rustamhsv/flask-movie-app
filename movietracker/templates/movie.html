@@ -27,8 +27,34 @@
                 <li>TMDB Rating: <strong>{{movie.vote_average}}</strong></li>
                 <li>Users voted: <strong>{{movie.vote_count}}</strong></li>
             </ul>
+
+
+            <p style="font-size:180%; margin-top:120px;"> <strong>Write a review</strong>  </p>
+            <!-- Login Form -->
+            <form method="POST" action="" enctype="multipart/form-data">
+
+            {{ form.csrf_token }}
+            {{ form.review() }}
+            {% for fieldName, errorMessages in form.errors.items() %}
+              <div class="text-danger">
+                {% for error in errorMessages %}
+                  <span> {{ error }}</span>
+                {% endfor %}
+              </div>
+            {% endfor %}
+
+            {{ form.post_review }}
+            </form>
+
+            <p style="font-size:180%; margin-top:50px;"> <strong>Reviews</strong>  </p>
+            {% for review in reviews: %}
+                <p style="font-size:180%; margin-top:5px;">{{ review.content }}</p>
+            {% endfor %}
         </div>
     </div>
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

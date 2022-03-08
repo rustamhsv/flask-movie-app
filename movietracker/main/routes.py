@@ -1,9 +1,13 @@
+from flask_login import current_user
+
 from . import main
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
+from datetime import date
+from .. import db
 from ..request import get_movies
 from .utils import save_data_to_db
-from movietracker.models import MovieDB
-from .forms import SearchForm
+from movietracker.models import MovieDB, Review
+from .forms import SearchForm, ReviewForm
 
 
 @main.route('/')
@@ -24,10 +28,26 @@ def home():
     return render_template('home.html', popular_movies=popular_movies_from_db)
 
 
-@main.route('/movie/<movie_id>/<movie_title>')
+@main.route('/movie/<movie_id>/<movie_title>', methods=['GET', 'POST'])
 def movie_page(movie_id, movie_title):
     movie = MovieDB.query.filter_by(movie_id=movie_id).first_or_404()
-    return render_template('movie.html', movie=movie)
+
+    form = ReviewForm()
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            review = Review(date_posted=date.today(), content=form.review.data,
+                            author=current_user.username, movie_id=movie.movie_id)
+
+            # add users to database session
+            db.session.add(review)
+
+            # commit users
+            db.session.commit()
+
+            flash('Review posted!', 'success')
+
+    reviews = Review.query.filter_by(movie=movie)
+    return render_template('movie.html', movie=movie, reviews=reviews, form=form)
 
 
 @main.route('/search', methods=['GET', 'POST'])
@@ -47,4 +67,11 @@ def search():
         paginate(page=page, per_page=24)
 
     return render_template('search.html', search_results=search_results)
+
+
+# @main.route('/movie/<movie_id>/<movie_title>')
+# def write_review(movie_id):
+#     movie = MovieDB.query.filter_by(movie_id=movie_id).first_or_404()
+#     reviews = MovieDB.query.filter_by(movie_id=movie_id)
+#     return render_template('movie.html', movie=movie)
 
