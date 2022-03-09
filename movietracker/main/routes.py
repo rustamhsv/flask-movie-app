@@ -2,7 +2,7 @@ from flask_login import current_user
 
 from . import main
 from flask import render_template, request, redirect, url_for, flash
-from datetime import date
+from datetime import datetime
 from .. import db
 from ..request import get_movies
 from .utils import save_data_to_db
@@ -35,7 +35,9 @@ def movie_page(movie_id, movie_title):
     form = ReviewForm()
     if current_user.is_authenticated:
         if form.validate_on_submit():
-            review = Review(date_posted=date.today(), content=form.review.data,
+            current_date_time = datetime.now().replace(second=0, microsecond=0)
+            # a = current_date_time.strftime('%Y-%m-%d %H:%M')
+            review = Review(date_posted=current_date_time, content=form.review.data,
                             author=current_user.username, movie_id=movie.movie_id)
 
             # add users to database session
@@ -44,7 +46,8 @@ def movie_page(movie_id, movie_title):
             # commit users
             db.session.commit()
 
-            flash('Review posted!', 'success')
+            flash('Review posted!', category='alert alert-success')
+            return redirect(url_for('main.movie_page', movie_id=movie.movie_id, movie_title=movie.title))
 
     reviews = Review.query.filter_by(movie=movie)
     return render_template('movie.html', movie=movie, reviews=reviews, form=form)

@@ -25,3 +25,9 @@ nav .navbar-nav li a{
   color: black !important;
   font-size: 13px;
   }
+
+#reviews, #reviews_guest{
+    margin-bottom:20px;
+    border:1px dotted black;
+    border-radius: 10px;
+}

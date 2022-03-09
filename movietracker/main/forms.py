@@ -9,6 +9,6 @@ class SearchForm(FlaskForm):
 
 
 class ReviewForm(FlaskForm):
-    review = StringField('review_text', validators=[DataRequired()])
+    review = StringField('review_text', validators=[DataRequired()], render_kw={'style': 'width: 80%'})
     post_review = SubmitField('post')
 

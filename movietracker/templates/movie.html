@@ -28,28 +28,55 @@
                 <li>Users voted: <strong>{{movie.vote_count}}</strong></li>
             </ul>
 
+            {% if current_user.is_authenticated: %}
+                <p style="font-size:180%; margin-top:120px;"> <strong>Write a review</strong>  </p>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    {{ form.review(class="input-lg") }}
+                    {% for fieldName, errorMessages in form.errors.items() %}
+                      <div class="text-danger">
+                        {% for error in errorMessages %}
+                          <span> {{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    {% endfor %}
 
-            <p style="font-size:180%; margin-top:120px;"> <strong>Write a review</strong>  </p>
-            <!-- Login Form -->
-            <form method="POST" action="" enctype="multipart/form-data">
+                    {{ form.post_review(class="btn btn-info btn-lg") }}
 
-            {{ form.csrf_token }}
-            {{ form.review() }}
-            {% for fieldName, errorMessages in form.errors.items() %}
-              <div class="text-danger">
-                {% for error in errorMessages %}
-                  <span> {{ error }}</span>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% for category, message in messages %}
+                        <div class="{{ category }}">{{ message }}</div>
+                      {% endfor %}
+                    {% endwith %}
+                </form>
+
+                <p style="font-size:180%; margin-top:50px; margin-bottom:20px;"> <strong>Reviews</strong>  </p>
+                {% for review in reviews: %}
+                    <div id="reviews">
+                        <div style="margin-left:20px;">
+
+                            <strong style="font-size:140%; color: gray;">{{ review.author }}</strong>
+                            <h1 style="font-size:140%; color:gray; display: inline-block; float:right; margin-right:20px;">
+                                {{review.date_posted.strftime('%Y-%m-%d   %H:%M')}}</h1>
+                            <p style="font-size:180%;">{{ review.content }}</p>
+                        </div>
+                    </div>
                 {% endfor %}
-              </div>
-            {% endfor %}
+            {% else %}
+                <p style="font-size:180%; margin-top:170px; margin-bottom:20px;"> <strong>Reviews</strong>  </p>
+                {% for review in reviews: %}
+                    <div id="reviews_guest">
+                        <div style="margin-left:20px;">
 
-            {{ form.post_review }}
-            </form>
+                            <strong style="font-size:140%; color: gray;">{{ review.author }}</strong>
+                            <h1 style="font-size:140%; color:gray; display: inline-block; float:right; margin-right:20px;">
+                                {{review.date_posted.strftime('%Y-%m-%d   %H:%M')}}</h1>
+                            <p style="font-size:180%;">{{ review.content }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
 
-            <p style="font-size:180%; margin-top:50px;"> <strong>Reviews</strong>  </p>
-            {% for review in reviews: %}
-                <p style="font-size:180%; margin-top:5px;">{{ review.content }}</p>
-            {% endfor %}
         </div>
     </div>
 
