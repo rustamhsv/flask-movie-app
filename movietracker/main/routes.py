@@ -49,7 +49,7 @@ def movie_page(movie_id, movie_title):
             flash('Review posted!', category='alert alert-success')
             return redirect(url_for('main.movie_page', movie_id=movie.movie_id, movie_title=movie.title))
 
-    reviews = Review.query.filter_by(movie=movie)
+    reviews = Review.query.filter_by(movie=movie).order_by(Review.date_posted.desc())
     return render_template('movie.html', movie=movie, reviews=reviews, form=form)
 
 

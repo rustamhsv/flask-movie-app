@@ -26,7 +26,7 @@ def register():
             # commit users
             db.session.commit()
 
-            flash('Registration successful', 'success')
+            flash('Registration successful', 'alert alert-success')
             return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form)
@@ -44,7 +44,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            flash('Login successful!', 'success')
+            flash('Login successful!', category='alert alert-success')
             return redirect(url_for('main.home'))
     return render_template('login.html', form=form)
 

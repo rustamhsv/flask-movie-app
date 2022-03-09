@@ -43,11 +43,6 @@
 
                     {{ form.post_review(class="btn btn-info btn-lg") }}
 
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                      {% for category, message in messages %}
-                        <div class="{{ category }}">{{ message }}</div>
-                      {% endfor %}
-                    {% endwith %}
                 </form>
 
                 <p style="font-size:180%; margin-top:50px; margin-bottom:20px;"> <strong>Reviews</strong>  </p>
@@ -57,7 +52,7 @@
 
                             <strong style="font-size:140%; color: gray;">{{ review.author }}</strong>
                             <h1 style="font-size:140%; color:gray; display: inline-block; float:right; margin-right:20px;">
-                                {{review.date_posted.strftime('%Y-%m-%d   %H:%M')}}</h1>
+                                {{review.date_posted.strftime('%b %d, %Y %H:%M')}}</h1>
                             <p style="font-size:180%;">{{ review.content }}</p>
                         </div>
                     </div>
@@ -67,7 +62,6 @@
                 {% for review in reviews: %}
                     <div id="reviews_guest">
                         <div style="margin-left:20px;">
-
                             <strong style="font-size:140%; color: gray;">{{ review.author }}</strong>
                             <h1 style="font-size:140%; color:gray; display: inline-block; float:right; margin-right:20px;">
                                 {{review.date_posted.strftime('%Y-%m-%d   %H:%M')}}</h1>
@@ -76,6 +70,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
+
 
         </div>
     </div>

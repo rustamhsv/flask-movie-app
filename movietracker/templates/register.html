@@ -32,10 +32,6 @@
       {% endfor %}
 
       {{ form.submit }}
-
-      {% for message in get_flashed_messages() %}
-        <p class="alert alert-danger">{{ message }}</p>
-      {% endfor %}
     </form>
 
 
