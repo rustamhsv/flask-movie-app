@@ -24,7 +24,7 @@
       {{ form.email(placeholder=form.email.label.text) }}
       {{ form.password(placeholder=form.password.label.text) }}
       {{ form.confirm_password(placeholder=form.confirm_password.label.text) }}
-      {% for fieldName, errorMessages in form.errors.items() %} 
+      {% for fieldName, errorMessages in form.errors.items() %}
         <div class="text-danger">
           {% for error in errorMessages %}
             <span> {{ error }}</span>

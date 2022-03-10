@@ -2,7 +2,7 @@ from flask_login import current_user
 
 from . import main
 from flask import render_template, request, redirect, url_for, flash
-from datetime import datetime
+from datetime import datetime, timedelta
 from .. import db
 from ..request import get_movies
 from .utils import save_data_to_db
@@ -35,7 +35,8 @@ def movie_page(movie_id, movie_title):
     form = ReviewForm()
     if current_user.is_authenticated:
         if form.validate_on_submit():
-            current_date_time = datetime.now().replace(second=0, microsecond=0)
+            current_date_time = datetime.utcnow() + timedelta(hours=1)
+            current_date_time = current_date_time.replace(second=0, microsecond=0)
             # a = current_date_time.strftime('%Y-%m-%d %H:%M')
             review = Review(date_posted=current_date_time, content=form.review.data,
                             author=current_user.username, movie_id=movie.movie_id)
