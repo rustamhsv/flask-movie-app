@@ -2,6 +2,7 @@
 {% block content %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="static/css/login.css" rel="stylesheet">
+
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -23,7 +24,7 @@
       {{ form.email(placeholder=form.email.label.text) }}
       {{ form.password(placeholder=form.password.label.text) }}
       {{ form.confirm_password(placeholder=form.confirm_password.label.text) }}
-      {% for fieldName, errorMessages in form.errors.items() %}
+      {% for fieldName, errorMessages in form.errors.items() %} 
         <div class="text-danger">
           {% for error in errorMessages %}
             <span> {{ error }}</span>

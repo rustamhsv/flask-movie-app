@@ -1,6 +1,6 @@
 body {
-  margin-left: 100px;
-  margin-right: 100px;
+  margin:auto;
+  width:95%;
 }
 
 #wrapper {
@@ -21,13 +21,20 @@ body {
     margin-bottom: 15px;
 }
 
+
 nav .navbar-nav li a{
-  color: black !important;
+  /*color: black !important;*/
   font-size: 13px;
   }
 
+.navbar {
+  justify-content: flex-end !important;
+}
+
 #reviews, #reviews_guest{
     margin-bottom:20px;
-    border:1px dotted black;
+    border:1px dotted white;
     border-radius: 10px;
+    word-wrap: break-word;
+    font-size:2vh;
 }

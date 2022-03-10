@@ -12,24 +12,138 @@
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
 
     <title>Title</title>
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+.header {
+  background-color: #33b5e5;
+  color: #ffffff;
+  padding: 15px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  padding: 8px;
+  margin-bottom: 7px;
+  background-color: #33b5e5;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  font-size:150%;
+}
+
+.menu li:hover {
+  background-color: #0099cc;
+}
+
+.aside {
+  background-color: #33b5e5;
+  padding: 15px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.footer {
+  background-color: #0099cc;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 15px;
+}
+
+.input-lg{
+  color: black;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;}
+}
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+}
+</style>
 </head>
 <body>
-    <div id="wrapper">
-        <div id="movie">
-            <img src="{{ movie.poster }}" width="200" id="poster">
-        </div>
+<div class="header">
+  <h1>{{ movie.title }}</h1>
+</div>
 
-        <div id="overview">
-            <h1>{{ movie.title }}</h1>
-            <p style="font-size:180%; margin-top:15px;">{{ movie.overview }}</p>
-            <ul style="font-size:180%; margin-top:30px;">
-                <li>Release year: <strong>{{movie.release_date}}</strong></li>
-                <li>TMDB Rating: <strong>{{movie.vote_average}}</strong></li>
-                <li>Users voted: <strong>{{movie.vote_count}}</strong></li>
-            </ul>
 
-            {% if current_user.is_authenticated: %}
-                <p style="font-size:180%; margin-top:120px;"> <strong>Write a review</strong>  </p>
+<div class="row">
+  <div class="col-3 col-s-3 menu">
+    <ul>
+      <li>Release year: <strong>{{movie.release_date}}</strong></li>
+      <li>TMDB Rating: <strong>{{movie.vote_average}} </strong></li>
+      <li>Users voted: <strong>{{movie.vote_count}}</strong></li>
+    </ul>
+  </div>
+
+  <div class="col-6 col-s-9">
+    <h1>About</h1>
+    <p style="font-size:180%;">{{ movie.overview }}</p>
+  </div>
+
+  <div class="col-3 col-s-12">
+    <div class="aside">
+      <img src="{{ movie.poster }}" width="100%" id="poster">
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  {% if current_user.is_authenticated: %}
+                <p style="font-size:3vw; margin-top:1%;"> <strong>Write a review</strong>  </p>
                 <form method="POST" action="" enctype="multipart/form-data">
                     {{ form.csrf_token }}
                     {{ form.review(class="input-lg") }}
@@ -45,38 +159,31 @@
 
                 </form>
 
-                <p style="font-size:180%; margin-top:50px; margin-bottom:20px;"> <strong>Reviews</strong>  </p>
+                <p style="font-size:3vw; margin-top:5%; margin-bottom:2%;"> <strong>Reviews</strong>  </p>
                 {% for review in reviews: %}
                     <div id="reviews">
-                        <div style="margin-left:20px;">
-
-                            <strong style="font-size:140%; color: gray;">{{ review.author }}</strong>
-                            <h1 style="font-size:140%; color:gray; display: inline-block; float:right; margin-right:20px;">
-                                {{review.date_posted.strftime('%b %d, %Y %H:%M')}}</h1>
-                            <p style="font-size:180%;">{{ review.content }}</p>
+                        <div style="margin-left:3%;">
+                            <strong style="color:white;">@{{ review.author }}</strong>
+                            <p style="color:white; float:right; margin-right:3%;">
+                                {{review.date_posted.strftime('%b %d, %Y %H:%M')}}</p>
+                            <p>{{ review.content }}</p>
                         </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p style="font-size:180%; margin-top:170px; margin-bottom:20px;"> <strong>Reviews</strong>  </p>
+                <p style="font-size:3vw; margin-top:1%; margin-bottom:2%;"> <strong>Reviews</strong>  </p>
                 {% for review in reviews: %}
                     <div id="reviews_guest">
-                        <div style="margin-left:20px;">
-                            <strong style="font-size:140%; color: gray;">{{ review.author }}</strong>
-                            <h1 style="font-size:140%; color:gray; display: inline-block; float:right; margin-right:20px;">
-                                {{review.date_posted.strftime('%Y-%m-%d   %H:%M')}}</h1>
-                            <p style="font-size:180%;">{{ review.content }}</p>
+                        <div style="margin-left:3%;">
+                            <strong style="color: white;">@{{ review.author }}</strong>
+                            <p style=" color:white;float:right; margin-right:3%;">
+                                {{review.date_posted.strftime('%Y-%m-%d   %H:%M')}}</p>
+                            <p>{{ review.content }}</p>
                         </div>
                     </div>
                 {% endfor %}
             {% endif %}
-
-
-        </div>
-    </div>
-
-
-
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
