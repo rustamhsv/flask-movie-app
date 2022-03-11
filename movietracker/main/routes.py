@@ -1,12 +1,13 @@
 from flask_login import current_user
+from werkzeug.security import check_password_hash
 
 from . import main
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify, abort, g
 from datetime import datetime, timedelta
-from .. import db
+from .. import db, auth
 from ..request import get_movies
 from .utils import save_data_to_db
-from movietracker.models import MovieDB, Review
+from movietracker.models import MovieDB, Review, User
 from .forms import SearchForm, ReviewForm
 
 

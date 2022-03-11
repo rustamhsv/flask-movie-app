@@ -4,11 +4,13 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_httpauth import HTTPBasicAuth
 
 bootstrap = Bootstrap()  # initialize Bootstrap
 db = SQLAlchemy()  # initialize SQLAlchemy Database
 migrate = Migrate()  # initialize migration
 login_manager = LoginManager()  # initialize Login Manager
+auth = HTTPBasicAuth()  # initialize authentication
 
 
 def create_app(config_class=Config):
@@ -28,6 +30,12 @@ def create_app(config_class=Config):
     # register users Blueprint
     from .users import users as users_blueprint
     app.register_blueprint(users_blueprint)
+
+    from .errors.handlers import errors
+    app.register_blueprint(errors)
+
+    from .api.rest_api import api
+    app.register_blueprint(api)
 
     return app
 
