@@ -38,3 +38,17 @@ nav .navbar-nav li a{
     word-wrap: break-word;
     font-size:2vh;
 }
+
+#movie_list_api, #movie_api {
+    letter-spacing: 0.1vw;
+    text-transform: uppercase;
+    text-align: center;
+    border: 0.2vw solid rgba(0,0,200,0.6);
+    background: rgba(0,0,200,0.3);
+    color: rgba(0,0,200,0.6);
+    box-shadow: 0.1vw 0.1vw 0.2vw rgba(0,0,200,0.4);
+    border-radius: 2vw;
+    padding: 0.5vw 2vw;
+    cursor: pointer;
+    margin-left:2em
+  }

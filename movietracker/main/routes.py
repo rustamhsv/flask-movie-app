@@ -74,6 +74,10 @@ def search():
     return render_template('search.html', search_results=search_results)
 
 
+@main.route('/api')
+def api():
+    return render_template('api.html')
+
 # @main.route('/movie/<movie_id>/<movie_title>')
 # def write_review(movie_id):
 #     movie = MovieDB.query.filter_by(movie_id=movie_id).first_or_404()

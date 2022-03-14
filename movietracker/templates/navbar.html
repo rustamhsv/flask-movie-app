@@ -25,6 +25,9 @@
       <li>
         <a href="{{ url_for('main.home') }}">Home</a>
       </li>
+      <li>
+        <a href="{{ url_for('main.api') }}">API</a>
+      </li>
       {% if current_user.is_authenticated %}
         <li>
           <a href="{{ url_for('users.account') }}">Account</a>
